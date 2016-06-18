@@ -12,6 +12,10 @@
         <input type="checkbox" id="ignore-punctuation" checked />
         Ignore Punctuation
       </label>
+      <label class="checkbox-label">
+        <input type="checkbox" id="ignore-numbering" checked />
+        Ignore Numbering
+      </label>
     </div>
     <div class="half-container">
       <div class="version-container">
@@ -39,6 +43,7 @@
       <div id="intro_b" class="output intro"></div>
       <div id="output_b" class="output"></div>
     </div>
+    <div class="clear"></div>
     <div class="cover" style="display: none">
       <div class="loading">
       </div>
@@ -46,7 +51,7 @@
   </div>
 </body>
 <script src="lib/diff.min.js"></script>
-<script src="lib/zepto.min.js"></script>
+<script src="lib/jquery.min.js"></script>
 
 <script src="texts/1833.js"></script>
 <script src="texts/1835.js"></script>
@@ -54,4 +59,6 @@
 <script src="texts/2013.js"></script>
 
 <script src="js/dc-compare.js"></script>
+
+<script src="enumerate-differences.js"></script>
 </html>
