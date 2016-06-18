@@ -350,6 +350,17 @@ $(window).resize(function() {
 });
 
 /*
+Preserve Options
+*/
+$('input[type="checkbox"]').each(function() {
+  $(this).change(function() {
+    localStorage[$(this).attr('id')] = $(this).prop('checked');
+  });
+
+  $(this).prop('checked', localStorage[$(this).attr('id')] != "false");
+});
+
+/*
 START
 */
 
