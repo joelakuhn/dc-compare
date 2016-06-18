@@ -114,10 +114,10 @@ function level_paragraphs() {
     var rh = $('#output_b > [data-index="' + lh.attr('data-index') + '"]');
     var lhd = lh.prevAll('.divider:first');
     var rhd = rh.prevAll('.divider:first');
-    if (!lhd.hasClass('adjusted') && !rhd.hasClass('adjusted')) {
+    if (!lhd.data('adjusted') && !rhd.data('adjusted')) {
       common_dividers.push({ lhd: lhd, rhd: rhd });
-      lhd.addClass('adjusted');
-      rhd.addClass('adjusted');
+      lhd.data('adjusted', true);
+      rhd.data('adjusted', true);
     }
   });
   common_dividers.forEach(function(divs) {
@@ -131,7 +131,8 @@ function level_paragraphs() {
         divs.lhd.css('padding-bottom', rhd_offset.top - lhd_offset.top);
       }
     }
-  })
+  });
+  $('.divider').data('adjusted', false);
 }
 
 function add_drink_count() {
@@ -176,6 +177,7 @@ function compare_verses() {
         ignore_punctuation();
         ignore_numbering();
         add_drink_count();
+        show_hide_drinks();
       }
     } catch (e) {
       console.log(e);
@@ -307,6 +309,23 @@ function ignore_punctuation() {
 
 $('#ignore-punctuation').change(ignore_punctuation);
 
+/*
+SHOW/HIDE Drinks
+*/
+
+function show_hide_drinks() {
+  if ($('#show-drinks').prop('checked')) {
+    $('.drink').show();
+    $('#drink-count-a,#drink-count-b').show();
+  }
+  else {
+    $('.drink').hide();
+    $('#drink-count-a,#drink-count-b').hide();
+  }
+}
+
+$('#show-drinks').change(show_hide_drinks);
+
 function ignore_numbering() {
   // var ignore_numbering = $('#ignore-numbering').prop('checked');
   // if (ignore_numbering) {
@@ -327,6 +346,7 @@ WINDOW ADJUSTMENTS
 
 $(window).resize(function() {
   level_intros();
+  level_paragraphs();
 });
 
 /*
