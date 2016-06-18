@@ -49,11 +49,11 @@ function cleanup(diff, which) {
 
 function format_text(text) {
   return text
-  .replace(/(verily)/ig, '$1 &#x1F37A;')
-  .replace(/(behold)/ig, '$1 &#x1F37A;')
-  .replace(/(came to pass)/ig, '$1 &#x1F37A;')
-  .replace(/(\byea\b)/ig, '$1 &#x1F37A;')
-  .replace(/(come|bring) (to pass)/ig, '$1 $2 <span class="nowrap">&macr;\\_(ツ)_/&macr; &#x1F37A;</span>')
+  .replace(/(verily)/ig, '$1 <span class="drink">&#x1F37A;</span>')
+  .replace(/(behold)/ig, '$1 <span class="drink">&#x1F37A;</span>')
+  .replace(/(came to pass)/ig, '$1 <span class="drink">&#x1F37A;</span>')
+  .replace(/(\byea\b)/ig, '$1 <span class="drink">&#x1F37A;</span>')
+  .replace(/(come|bring) (to pass)/ig, '$1 $2 <span class="nowrap drink">&macr;\\_(ツ)_/&macr; &#x1F37A;</span>')
 }
 
 function show_verse(out_id, diff) {
@@ -134,42 +134,54 @@ function level_paragraphs() {
   })
 }
 
+function add_drink_count() {
+  var drink_count_a = $('#output_a').find('.drink').length;
+  var drink_count_a_text = '(' + drink_count_a + (drink_count_a == 1 ? ' drink)' : ' drinks)')
+  $('#drink-count-a').text(drink_count_a_text);
+  var drink_count_b = $('#output_b').find('.drink').length;
+  var drink_count_b_text = '(' + drink_count_b + (drink_count_b == 1 ? ' drink)' : ' drinks)')
+  $('#drink-count-b').text(drink_count_b_text);
+}
+
 function compare_verses() {
   $('.cover').show();
-  // try {
-    var a = window['dc' + version_a]
-    var b = window['dc' + version_b]
-    if (!a.chapters[chapter] || !b.chapters[chapter]) {
-      if (!a.chapters[chapter]) {
-        $('#output_a').text("The " + version_a + " edition does not contain this passage.");
-        $('#output_b').html(b.chapters[chapter].verses.join("\n"));
+  setTimeout(function() {
+    try {
+      var a = window['dc' + version_a]
+      var b = window['dc' + version_b]
+      if (!a.chapters[chapter] || !b.chapters[chapter]) {
+        if (!a.chapters[chapter]) {
+          $('#output_a').text("The " + version_a + " edition does not contain this passage.");
+          $('#output_b').html(b.chapters[chapter].verses.join("\n"));
+        }
+        if (!b.chapters[chapter]) {
+          $('#output_a').html(a.chapters[chapter].verses.join("\n"));
+          $('#output_b').text("The " + version_b + " edition does not contain this passage.");
+        }
       }
-      if (!b.chapters[chapter]) {
-        $('#output_a').html(a.chapters[chapter].verses.join("\n"));
-        $('#output_b').text("The " + version_b + " edition does not contain this passage.");
+      else {
+        compare_texts (
+          a.chapters[chapter].verses.join("\n"),
+          b.chapters[chapter].verses.join("\n"),
+          'output_a',
+          'output_b' );
+        compare_texts (
+          a.chapters[chapter].intro,
+          b.chapters[chapter].intro,
+          'intro_a',
+          'intro_b' );
+        level_intros();
+        level_paragraphs();
+        attach_events();
+        ignore_punctuation();
+        ignore_numbering();
+        add_drink_count();
       }
+    } catch (e) {
+      console.log(e);
     }
-    else {
-      compare_texts (
-        a.chapters[chapter].verses.join("\n"),
-        b.chapters[chapter].verses.join("\n"),
-        'output_a',
-        'output_b' );
-      compare_texts (
-        a.chapters[chapter].intro,
-        b.chapters[chapter].intro,
-        'intro_a',
-        'intro_b' );
-      level_intros();
-      level_paragraphs();
-      attach_events();
-      ignore_punctuation();
-      ignore_numbering();
-    }
-  // } catch (e) {
-  //   console.log(e);
-  // }
-  $('.cover').hide();
+    $('.cover').hide();
+  });
 }
 
 function same_hover() {
