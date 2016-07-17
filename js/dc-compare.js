@@ -39,11 +39,23 @@ function combine(diff, which) {
   return combined;
 }
 
+function mark_same_case(diff) {
+  for (var i=0; i<diff.length; i++) {
+    if (diff[i].removed && diff[i+1].added) {
+      if (diff[i].value.toLowerCase() == diff[i+1].value.toLowerCase()) {
+        diff[i].same_case   = true;
+        diff[i+1].same_case = true;
+      }
+    }
+  }
+}
+
 function cleanup(diff, which) {
   var ony_relevant = diff.filter(function(d) {
     return d.same || d[which];
   });
   assign_values(ony_relevant, which);
+  mark_same_case(diff);
   return ony_relevant
 }
 
@@ -72,16 +84,24 @@ function show_verse(out_id, diff) {
 
       if (pieces[p].length == 0) continue;
 
+      var el = $('<span>');
+
       if (d.added) {
-        output += '<span class="added">' + format_text(pieces[p]) + '</span>';
+        el.addClass('added').html(format_text(pieces[p]))
       }
       else if (d.removed) {
-        output += '<span class="removed">' + format_text(pieces[p]) + '</span>';
+        el.addClass('removed').html(format_text(pieces[p]))
       }
       else {
-        output += '<span class="same index-' + d.index + '_' + p + '" data-index="' + d.index + '_' + p + '">' + format_text(pieces[p]) + '</span>';
+        el.addClass('same')
+        .addClass('index-' + d.index + '_' + p)
+        .attr('data-index', d.index + '_' + p)
+        .html(format_text(pieces[p]))
       }
 
+      if (d.same_case) el.addClass('same-case')
+
+      output += el[0].outerHTML;
     }
   }
   document.getElementById(out_id).innerHTML = output
@@ -176,6 +196,7 @@ function compare_verses() {
         attach_events();
         ignore_punctuation();
         ignore_numbering();
+        ignore_case();
         add_drink_count();
         show_hide_drinks();
       }
@@ -310,6 +331,19 @@ function ignore_punctuation() {
 $('#ignore-punctuation').change(ignore_punctuation);
 
 /*
+IGNORE CASE
+*/
+
+function ignore_case() {
+  var background = $('#ignore-case').prop('checked')
+    ? 'transparent'
+    : '';
+  $('.same-case').css('background', background);
+}
+
+$('#ignore-case').change(ignore_case);
+
+/*
 SHOW/HIDE Drinks
 */
 
@@ -327,17 +361,17 @@ function show_hide_drinks() {
 $('#show-drinks').change(show_hide_drinks);
 
 function ignore_numbering() {
-  // var ignore_numbering = $('#ignore-numbering').prop('checked');
-  // if (ignore_numbering) {
-  //   var numbers = $('.added,.removed').filter(function() {
-  //     return $(this).text().match(/^\d+\s*/);
-  //   }).each(function(element) {
-  //     $(element).html($(element).text().replace(/(^\d+\s*)(.*)/, "$1" + '<span style="background-color:' + $(element).css('background-color') + '">$2</span>'));
-  //   })
-  // }
-  // else {
-  //   $('.added,.removed').css('background', '');
-  // }
+  var ignore_numbering = $('#ignore-numbering').prop('checked');
+  if (ignore_numbering) {
+    var numbers = $('.added,.removed').filter(function() {
+      return $(this).text().match(/^\d+\s*/);
+    }).each(function(element) {
+      $(element).html($(element).text().replace(/(^\d+\s*)(.*)/, "$1" + '<span style="background-color:' + $(element).css('background-color') + '">$2</span>'));
+    })
+  }
+  else {
+    $('.added,.removed').css('background', '');
+  }
 }
 
 /*
