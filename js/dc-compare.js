@@ -8,7 +8,7 @@ var chapter   = localStorage.chapter   || 1;
 var piece_index = 0;
 
 function assign_values(diff) {
-  for (var i=0; i<diff.length; i++) {
+  for (var i=0; i<(diff.length - 1); i++) {
     diff[i].same = !diff[i]['added'] && !diff[i]['removed'];
     diff[i].index = piece_index++;
   }
@@ -40,7 +40,7 @@ function combine(diff, which) {
 }
 
 function mark_same_case(diff) {
-  for (var i=0; i<diff.length; i++) {
+  for (var i=0; i<(diff.length - 1); i++) {
     if (diff[i].removed && diff[i+1].added) {
       if (diff[i].value.toLowerCase() == diff[i+1].value.toLowerCase()) {
         diff[i].same_case   = true;
@@ -386,7 +386,7 @@ $(window).resize(function() {
 /*
 Preserve Options
 */
-$('input[type="checkbox"]').each(function() {
+$('input[type="checkbox"].preserve').each(function() {
   $(this).change(function() {
     localStorage[$(this).attr('id')] = $(this).prop('checked');
   });
