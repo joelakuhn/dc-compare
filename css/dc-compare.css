@@ -45,6 +45,8 @@ body {
 .dark .added {
   background-color: #384436;
   background-color: #3d424e;
+  background-color: transparent;
+  color: #34bdb3;
 }
 .removed {
   background-color: #FDDEB6;
@@ -52,6 +54,8 @@ body {
 }
 .dark .removed {
   background-color: #5a4046;
+  background-color: transparent;
+  color: #da9434;
 }
 .highlighted {
   background-color: #DDDDDD;
