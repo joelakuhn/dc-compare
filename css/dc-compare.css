@@ -82,7 +82,7 @@ body {
   color: #484848;
   text-decoration: none;
 }
-.dark .chapter-select {
+.dark .chapter-navigator {
   color: #F9F9F9;
 }
 @keyframes pulse {
