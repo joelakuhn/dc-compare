@@ -296,8 +296,8 @@ function init_version_selectors() {
   var version_a_select = $('#version_a_select');
   var version_b_select = $('#version_b_select');
 
-  version_a_select.val(version_a);
-  version_b_select.val(version_b);
+  version_a_select.val(version_a).trigger('change');
+  version_b_select.val(version_b).trigger('change');
 
   version_a_select.change(change_version_a);
   version_b_select.change(change_version_b);
