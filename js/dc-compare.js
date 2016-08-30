@@ -168,6 +168,7 @@ function compare_verses() {
   $('.cover').show();
   setTimeout(function() {
     try {
+      a=b[9].hellow();
       var a = window['dc' + version_a]
       var b = window['dc' + version_b]
       if (!a.chapters[chapter] || !b.chapters[chapter]) {
@@ -202,10 +203,13 @@ function compare_verses() {
         add_drink_count();
         show_hide_drinks();
       }
-    } catch (e) {
-      console.log(e);
     }
-    $('.cover').hide();
+    catch (e) {
+      throw e;
+    }
+    finally {
+      $('.cover').hide();
+    }
   });
 }
 
