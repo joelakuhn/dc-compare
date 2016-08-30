@@ -110,6 +110,9 @@ body {
   background-color: #000;
   animation: pulse 1s infinite;
 }
+.dark .loading {
+  background-color: #ccc;
+}
 .innitial * {
   transition: none !important;
 }
