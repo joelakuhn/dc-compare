@@ -448,6 +448,7 @@ $('#version_a_select,#version_b_select').select2({
 });
 $('select').on('select2:open', function() {
   $('.select2-results').mouseover(function() { $('body').css('overflow', 'hidden'); });
+  $('.select2-results').mouseout(function() { $('body').css('overflow', ''); });
 });
 $('select').on('select2:close', function() {
   $('body').css('overflow', '');
