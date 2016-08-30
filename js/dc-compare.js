@@ -380,11 +380,9 @@ function ignore_numbering() {
 function toggle_dark_mode() {
   if ($('#dark-mode').prop('checked')) {
     $('html').addClass('dark');
-    console.log('dark');
   }
   else {
     $('html').removeClass('dark');
-    console.log('light');
   }
 }
 
