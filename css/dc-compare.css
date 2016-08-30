@@ -4,7 +4,6 @@ body {
   font-size: 18px;
   color: #484848;
   background-color: #F9F9F9;
-  padding-bottom: 15em;
   transition: all 200ms linear
 }
 .dark body {
@@ -84,6 +83,17 @@ body {
 }
 .dark .chapter-navigator {
   color: #F9F9F9;
+}
+.footer {
+  font-family: sans-serif;
+  padding-top: 10em;
+  padding-bottom: 1em;
+}
+.footer a {
+  color: #4b4bb3;
+  border-bottom: 3px solid;
+  text-decoration: none;
+  padding-bottom: 4px;
 }
 @keyframes pulse {
   0% {
