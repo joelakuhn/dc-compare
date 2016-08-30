@@ -440,12 +440,16 @@ fill_chapter_select([dc1833, dc1835, dc1844, dc2013]);
 toggle_dark_mode();
 
 $('#chapter_select').select2({
-  width: '200px',
+  width: '200px'
 });
 $('#version_a_select,#version_b_select').select2({
   width: '70px',
   minimumResultsForSearch: -1
-})
+});
+$('select').on('select2:open', function() {
+  $('.select2-results').mouseover(function() { $('body').css('overflow', 'hidden'); });
+  $('.select2-results').mouseout(function() { $('body').css('overflow', ''); });
+});
 
 init_version_selectors();
 compare_verses();
