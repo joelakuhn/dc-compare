@@ -79,8 +79,11 @@ body {
   height: 100%;
 }
 .chapter-navigator {
-  color: #F9F9F9;
+  color: #484848;
   text-decoration: none;
+}
+.dark .chapter-select {
+  color: #F9F9F9;
 }
 @keyframes pulse {
   0% {
@@ -111,6 +114,7 @@ body {
   transition: none !important;
 }
 
+/* SELECT2 */
 
 .select2-container {
   font-family: sans-serif;
