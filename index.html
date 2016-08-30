@@ -1,7 +1,6 @@
-<html>
+<html class="innitial">
 <head>
   <meta charset="UTF-8">
-  <link rel="stylesheet" href="css/dc-compare.css" />
 </head>
 <body>
   <div class="outer-container">
@@ -9,19 +8,23 @@
       <label>Chapter</label><br />
       <select id="chapter_select"></select><br /><br />
       <label class="checkbox-label">
-        <input type="checkbox" id="ignore-punctuation" checked />
+        <input type="checkbox" class="preserve" id="ignore-punctuation" checked />
         Ignore Punctuation
       </label>
       <label class="checkbox-label">
-        <input type="checkbox" id="ignore-case" checked />
+        <input type="checkbox" class="preserve" id="ignore-case" checked />
         Ignore Case
       </label>
+      <label class="checkbox-label">
+        <input type="checkbox" class="preserve" id="dark-mode" checked="false" />
+        Dark Mode
+      </label>
 <!--       <label class="checkbox-label">
-        <input type="checkbox" id="ignore-numbering" checked />
+        <input type="checkbox" class="preserve" id="ignore-numbering" checked />
         Ignore Numbering
       </label> -->
       <label class="checkbox-label">
-        <input type="checkbox" id="show-drinks" checked />
+        <input type="checkbox" class="preserve" id="show-drinks" checked />
         Show Drinks
       </label>
     </div>
@@ -57,14 +60,18 @@
       </div>
     </div>
   </div>
+  <script src="lib/diff.min.js"></script>
+  <script src="lib/jquery.min.js"></script>
+
+  <script src="texts/1833.js"></script>
+  <script src="texts/1835.js"></script>
+  <script src="texts/1844.js"></script>
+  <script src="texts/2013.js"></script>
+
+  <link rel="stylesheet" href="lib/select2/select2.min.css" />
+  <script src="lib/select2/select2.min.js"></script>
+
+  <link rel="stylesheet" href="css/dc-compare.css" />
+  <script src="js/dc-compare.js"></script>
 </body>
-<script src="lib/diff.min.js"></script>
-<script src="lib/jquery.min.js"></script>
-
-<script src="texts/1833.js"></script>
-<script src="texts/1835.js"></script>
-<script src="texts/1844.js"></script>
-<script src="texts/2013.js"></script>
-
-<script src="js/dc-compare.js"></script>
 </html>
