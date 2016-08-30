@@ -168,7 +168,6 @@ function compare_verses() {
   $('.cover').show();
   setTimeout(function() {
     try {
-      a=b[9].hellow();
       var a = window['dc' + version_a]
       var b = window['dc' + version_b]
       if (!a.chapters[chapter] || !b.chapters[chapter]) {
