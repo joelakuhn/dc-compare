@@ -412,6 +412,28 @@ $('input[type="checkbox"].preserve').each(function() {
 });
 
 /*
+Chapter Navigation
+*/
+
+$('#previous-section').click(function() {
+  var current_index = $('#chapter_select').prop('selectedIndex');
+  if (current_index > 0) {
+    $('#chapter_select option').eq(current_index - 1).prop('selected', true);
+    $('#chapter_select').trigger('change');
+  }
+  return false;
+})
+
+$('#next-section').click(function() {
+  var current_index = $('#chapter_select').prop('selectedIndex');
+  if (current_index < $('#chapter_select option').length - 1) {
+    $('#chapter_select option').eq(current_index + 1).prop('selected', true);
+    $('#chapter_select').trigger('change');
+  }
+  return false;
+})
+
+/*
 START
 */
 fill_chapter_select([dc1833, dc1835, dc1844, dc2013]);

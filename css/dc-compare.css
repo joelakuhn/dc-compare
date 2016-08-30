@@ -78,6 +78,10 @@ body {
   width: 100%;
   height: 100%;
 }
+.chapter-navigator {
+  color: #F9F9F9;
+  text-decoration: none;
+}
 @keyframes pulse {
   0% {
       opacity: 0.5;
