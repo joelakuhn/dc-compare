@@ -407,7 +407,7 @@ $('input[type="checkbox"].preserve').each(function() {
     localStorage[$(this).attr('id')] = $(this).prop('checked');
   });
 
-  $(this).prop('checked', localStorage[$(this).attr('id')] != "false");
+  $(this).prop('checked', localStorage[$(this).attr('id')] === "true");
 });
 
 /*
