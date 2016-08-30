@@ -124,6 +124,11 @@ body {
   font-size: .8em;
 }
 
+.select2-container input {
+  background-color: #191919;
+  color: #ccc;
+}
+
 .dark .select2-container--default .select2-selection--single .select2-selection__rendered {
   color: #ccc;
 }
