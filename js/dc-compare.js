@@ -172,12 +172,14 @@ function compare_verses() {
       var b = window['dc' + version_b]
       if (!a.chapters[chapter] || !b.chapters[chapter]) {
         if (!a.chapters[chapter]) {
-          $('#output_a').text("The " + version_a + " edition does not contain this passage.");
+          $('#intro_a').text("The " + version_a + " edition does not contain this passage.");
+          $('#output_a').text('');
           $('#output_b').html(b.chapters[chapter].verses.join("\n"));
         }
         if (!b.chapters[chapter]) {
           $('#output_a').html(a.chapters[chapter].verses.join("\n"));
-          $('#output_b').text("The " + version_b + " edition does not contain this passage.");
+          $('#intro_b').text("The " + version_b + " edition does not contain this passage.");
+          $('#output_b').text('');
         }
       }
       else {
