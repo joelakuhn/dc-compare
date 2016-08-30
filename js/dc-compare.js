@@ -413,15 +413,8 @@ $('input[type="checkbox"].preserve').each(function() {
 /*
 START
 */
-
 fill_chapter_select([dc1833, dc1835, dc1844, dc2013]);
-init_version_selectors();
-compare_verses();
 toggle_dark_mode();
-
-setTimeout(function() {
-  $('html').removeClass('innitial');
-}, 200);
 
 $('#chapter_select').select2({
   width: '200px',
@@ -430,3 +423,10 @@ $('#version_a_select,#version_b_select').select2({
   width: '70px',
   minimumResultsForSearch: -1
 })
+
+init_version_selectors();
+compare_verses();
+
+setTimeout(function() {
+  $('html').removeClass('innitial');
+}, 200);
