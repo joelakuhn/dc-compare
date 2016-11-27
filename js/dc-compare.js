@@ -8,7 +8,7 @@ var chapter   = localStorage.chapter   || 1;
 var piece_index = 0;
 
 function assign_values(diff) {
-  for (var i=0; i<(diff.length - 1); i++) {
+  for (var i=0; i<(diff.length); i++) {
     diff[i].same = !diff[i]['added'] && !diff[i]['removed'];
     diff[i].index = piece_index++;
   }
@@ -35,7 +35,9 @@ function combine(diff, which) {
       i++;
     }
   }
-  combined.push(diff[diff.length - 1])
+  if (i < diff.length) {
+    combined.push(diff[diff.length - 1])
+  }
   return combined;
 }
 
@@ -440,7 +442,7 @@ fill_chapter_select([dc1833, dc1835, dc1844, dc2013]);
 toggle_dark_mode();
 
 $('#chapter_select').select2({
-  width: '200px'
+  width: '300px'
 });
 $('#version_a_select,#version_b_select').select2({
   width: '70px',
