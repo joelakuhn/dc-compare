@@ -168,22 +168,26 @@ function add_drink_count() {
 
 function add_eth_count() {
   var eths_a = $('#output_a').text().match(/[\w']*eth\b/g);
-  var eth_count_a = 0;
-  for (var i=0; i<eths_a.length; i++) {
-    if (['Seth', 'teeth', 'wheth'].indexOf(eths_a[i]) == -1)
-      eth_count_a++;
+  if (eths_a) {
+    var eth_count_a = 0;
+    for (var i=0; i<eths_a.length; i++) {
+      if (['Seth', 'teeth', 'wheth'].indexOf(eths_a[i]) == -1)
+        eth_count_a++;
+    }
+    var eth_count_a_text = '' + eth_count_a + (eth_count_a == 1 ? ' eth' : ' eths');
+    $('#eth-count-a').text(' ' + eth_count_a_text);
   }
-  var eth_count_a_text = '' + eth_count_a + (eth_count_a == 1 ? ' eth' : ' eths');
-  $('#eth-count-a').text(' ' + eth_count_a_text);
 
   var eths_b = $('#output_b').text().match(/[\w']*eth\b/g);
-  var eth_count_b = 0;
-  for (var i=0; i<eths_b.length; i++) {
-    if (['Seth', 'teeth', 'wheth'].indexOf(eths_b[i]) == -1)
-      eth_count_b++;
+  if (eths_b) {
+    var eth_count_b = 0;
+    for (var i=0; i<eths_b.length; i++) {
+      if (['Seth', 'teeth', 'wheth'].indexOf(eths_b[i]) == -1)
+        eth_count_b++;
+    }
+    var eth_count_b_text = '' + eth_count_b + (eth_count_b == 1 ? ' eth' : ' eths');
+    $('#eth-count-b').text(' ' + eth_count_b_text);
   }
-  var eth_count_b_text = '' + eth_count_b + (eth_count_b == 1 ? ' eth' : ' eths');
-  $('#eth-count-b').text(' ' + eth_count_b_text);
 }
 
 function compare_verses() {
@@ -196,10 +200,10 @@ function compare_verses() {
         if (!a.chapters[chapter]) {
           $('#intro_a').text("The " + version_a + " edition does not contain this passage.");
           $('#output_a').text('');
-          $('#output_b').html(b.chapters[chapter].verses.join("\n"));
+          $('#output_b').html(format_text(b.chapters[chapter].verses.join("\n")));
         }
         if (!b.chapters[chapter]) {
-          $('#output_a').html(a.chapters[chapter].verses.join("\n"));
+          $('#output_a').html(format_text(a.chapters[chapter].verses.join("\n")));
           $('#intro_b').text("The " + version_b + " edition does not contain this passage.");
           $('#output_b').text('');
         }
@@ -221,10 +225,10 @@ function compare_verses() {
         ignore_punctuation();
         ignore_numbering();
         ignore_case();
-        add_drink_count();
-        add_eth_count();
-        show_hide_drinks();
       }
+      add_drink_count();
+      add_eth_count();
+      show_hide_drinks();
     }
     catch (e) {
       throw e;
