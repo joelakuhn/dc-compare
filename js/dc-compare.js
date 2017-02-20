@@ -521,7 +521,7 @@ setTimeout(function() {
 
 
 $(window).on('hashchange', function() {
-  var loc = window.location.hash.match(/(\w)Y(\d\d\d\d)C(\d+)V(\d+)$/);
+  var loc = window.location.hash.match(/(\w)Y(\d\d\d\d)C(\d+)V(\d+|intro)$/);
   var side = loc[1];
   var year = loc[2];
   var chapter = loc[3];
@@ -536,5 +536,7 @@ $(window).on('hashchange', function() {
 
   goto_chapter(chapter);
 
-  goto_verse(verse);
+  if (verse != 'intro') {
+    goto_verse(verse);
+  }
 });
