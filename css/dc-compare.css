@@ -179,11 +179,20 @@ body {
   color: blue;
   font-weight: bold;
   font-style: normal;
-  color: #7c7cef;
+  color: #e08282;
 }
 
 .search-results h2 {
   font-size: 1.2em;
+}
+
+.search-links a {
+  text-decoration: none;
+  background: #dfdfdf;
+  color: #333;
+  padding: 0.6em 1em;
+  font-size: .8em;
+  font-family: arial;
 }
 
 .box {
