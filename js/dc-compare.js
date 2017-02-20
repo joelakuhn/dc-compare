@@ -159,10 +159,10 @@ function level_paragraphs() {
 
 function add_drink_count() {
   var drink_count_a = $('#output_a').find('.drink').length;
-  var drink_count_a_text = drink_count_a + (drink_count_a == 1 ? ' drink,' : ' drinks,')
+  var drink_count_a_text = drink_count_a + (drink_count_a == 1 ? ' drink' : ' drinks')
   $('#drink-count-a').text(drink_count_a_text);
   var drink_count_b = $('#output_b').find('.drink').length;
-  var drink_count_b_text = drink_count_b + (drink_count_b == 1 ? ' drink,' : ' drinks,')
+  var drink_count_b_text = drink_count_b + (drink_count_b == 1 ? ' drink' : ' drinks')
   $('#drink-count-b').text(drink_count_b_text);
 }
 
@@ -175,7 +175,7 @@ function add_eth_count() {
         eth_count_a++;
     }
     var eth_count_a_text = '' + eth_count_a + (eth_count_a == 1 ? ' eth' : ' eths');
-    $('#eth-count-a').text(' ' + eth_count_a_text);
+    $('#eth-count-a').text(', ' + eth_count_a_text);
   }
 
   var eths_b = $('#output_b').text().match(/[\w']*eth\b/g);
@@ -186,7 +186,7 @@ function add_eth_count() {
         eth_count_b++;
     }
     var eth_count_b_text = '' + eth_count_b + (eth_count_b == 1 ? ' eth' : ' eths');
-    $('#eth-count-b').text(' ' + eth_count_b_text);
+    $('#eth-count-b').text(', ' + eth_count_b_text);
   }
 }
 
