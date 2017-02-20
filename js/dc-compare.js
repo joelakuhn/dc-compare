@@ -190,6 +190,13 @@ function add_eth_count() {
   }
 }
 
+function scroll_to_verse() {
+  if (typeof window.scrolltoverse !== 'undefined') {
+    $('body').scrollTop($($('#output_a .divider')[scrolltoverse-1]).position().top);
+    window.scrolltoverse = undefined;
+  }
+}
+
 function compare_verses() {
   $('.cover').show();
   setTimeout(function() {
@@ -229,6 +236,7 @@ function compare_verses() {
       add_drink_count();
       add_eth_count();
       show_hide_drinks();
+      scroll_to_verse();
     }
     catch (e) {
       throw e;
@@ -315,6 +323,15 @@ function change_chapters() {
   compare_verses();
 }
 
+function goto_chapter(chapter) {
+  $('#chapter_select option').eq(+chapter - 1).prop('selected', true);
+  $('#chapter_select').trigger('change');
+}
+
+function goto_verse(verse) {
+  window.scrolltoverse = verse;
+}
+
 /*
 VERSION SELECTORS
 */
@@ -340,6 +357,20 @@ function change_version_b() {
   version_b = $(this).val();
   localStorage.version_b = version_b;
   compare_verses();
+}
+
+function goto_version_a(version) {
+  $('#version_a_select option').filter(function() {
+    return $(this).val() == version;
+  }).prop('selected', true);
+  $('#version_a_select').trigger('change');
+}
+
+function goto_version_b(version) {
+  $('#version_b_select option').filter(function() {
+    return $(this).val() == version;
+  }).prop('selected', true);
+  $('#version_b_select').trigger('change');
 }
 
 /*
@@ -487,3 +518,23 @@ compare_verses();
 setTimeout(function() {
   $('html').removeClass('innitial');
 }, 200);
+
+
+$(window).on('hashchange', function() {
+  var loc = window.location.hash.match(/(\w)Y(\d\d\d\d)C(\d+)V(\d+)$/);
+  var side = loc[1];
+  var year = loc[2];
+  var chapter = loc[3];
+  var verse = loc[4];
+
+  if (side == 'L') {
+    goto_version_a(year);
+  }
+  else {
+    goto_version_b(year);
+  }
+
+  goto_chapter(chapter);
+
+  goto_verse(verse);
+});

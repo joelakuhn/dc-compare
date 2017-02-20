@@ -162,3 +162,44 @@ body {
 .dark .select2-container--default .select2-results__option--highlighted[aria-selected] {
   background-color: #3a3f67;
 }
+
+/* SEARCH */
+.search {
+  float: right;
+  padding: .5em 1em;
+}
+
+.search-results {
+  max-width: 800px;
+  margin: 4em auto;
+  padding: 1em;
+}
+
+.search-results em {
+  color: blue;
+  font-weight: bold;
+  font-style: normal;
+  color: #7c7cef;
+}
+
+.search-results h2 {
+  font-size: 1.2em;
+}
+
+.box {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #FFF;
+  overflow: auto;
+}
+
+.box .close-button {
+  position: fixed;
+  right: 1em;
+  top: 1em;
+  font-size: 2em;
+  cursor: pointer;
+}
