@@ -35,19 +35,21 @@ function show_search_results(data) {
   var results = [];
   for (var i=0; i<hits.length; i++) {
     var highlight = hits[i].highlight.text.join("<br><br>");
-    var title = '<h2>' + hits[i]._source.chapter + ' (' + hits[i]._source.year + ')</h2>';
+    var title = '<h2>' + hits[i]._source.chapter
+      + ':' + (+hits[i]._source.verse + 1)
+      + ' (' + hits[i]._source.year + ')</h2>';
     var result_text = '<p class="search-result">' + highlight + '</p>';
     var links = '<p class="search-links">'
       + '<a class="close-box update-revelation" href="#L'
         + 'Y' + hits[i]._source.year
         + 'C' + hits[i]._source.chapter
-        + 'V' + hits[i]._source.verse
+        + 'V' + (+hits[i]._source.verse + 1)
         + '">Open on Left</a>'
       + '&nbsp;&nbsp;'
       + '<a class="close-box update-revelation" href="#R'
         + 'Y' + hits[i]._source.year
         + 'C' + hits[i]._source.chapter
-        + 'V' + hits[i]._source.verse
+        + 'V' + (+hits[i]._source.verse + 1)
         + '">Open on Right</a>'
       + '</p>';
     var result = title + result_text + links;
