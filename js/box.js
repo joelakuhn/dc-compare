@@ -8,14 +8,20 @@ function box(content) {
   $box.append('<div class="close-box close-button">&#x00D7;</div>');
 
   $box.find('.close-box').click(function() {
-    $('.box').remove();
+    close_box();
   });
+
+  $('body').addClass('has-box');
 }
 
+function close_box() {
+  $('.box').remove();
+  $('body').removeClass('has-box');
+}
 
 
 $(window).keydown(function(e) {
   if (e.keyCode === 27) {
-    $('.box').remove();
+    close_box();
   }
 });
