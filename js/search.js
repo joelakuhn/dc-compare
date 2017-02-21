@@ -17,7 +17,8 @@ function search(term) {
         "fields" : {
             "text" : {}
         }
-    }
+    },
+    size: 100
   };
   if ($('#search-version').val() !== 'any') {
     query.query.bool.must.push({ match: { year: $('#search-version').val() } });
