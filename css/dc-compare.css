@@ -164,8 +164,10 @@ body {
 }
 
 /* SEARCH */
-.search {
+.search-fields {
   float: right;
+}
+.search {
   padding: .5em 1em;
 }
 

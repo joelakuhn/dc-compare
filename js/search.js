@@ -7,7 +7,11 @@ $('#search').keydown(function(e) {
 function search(term) {
   var query = {
     "query" : {
-        "match": { "text": term }
+      "bool": {
+        "must": [
+          { "match": { "text": term }}
+        ]
+      }
     },
     "highlight" : {
         "fields" : {
@@ -15,6 +19,10 @@ function search(term) {
         }
     }
   };
+  if ($('#search-version').val() !== 'any') {
+    query.query.bool.must.push({ match: { year: $('#search-version').val() } });
+  }
+  console.log(query);
   $.ajax({
     url: 'http://104.131.73.224:9200/dc/texts/_search',
     data: JSON.stringify(query),
@@ -59,3 +67,9 @@ function show_search_results(data) {
   var search_content = '<div class="search-results">' + results.join('') + '</div>';
   box(search_content);
 }
+
+$(function() {
+  $('#search-version').select2({
+    width: '120px'
+  });
+});
