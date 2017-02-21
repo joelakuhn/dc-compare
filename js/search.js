@@ -23,7 +23,6 @@ function search(term) {
   if ($('#search-version').val() !== 'any') {
     query.query.bool.must.push({ match: { year: $('#search-version').val() } });
   }
-  console.log(query);
   $.ajax({
     url: 'http://104.131.73.224:9200/dc/texts/_search',
     data: JSON.stringify(query),
