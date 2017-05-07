@@ -6,6 +6,7 @@ var version_a = localStorage.version_a || 1833;
 var version_b = localStorage.version_b || 2013;
 var chapter   = localStorage.chapter   || 1;
 var piece_index = 0;
+var fetched = {};
 
 function assign_values(diff) {
   for (var i=0; i<(diff.length); i++) {
@@ -197,8 +198,55 @@ function scroll_to_verse() {
   }
 }
 
+function parse_section(section) {
+  var intro = section.match(/\[intro\]\n+([\s\S]*?)\n\[.+?\]\n/m)[1];
+  var verses = section.match(/\[verses\]\n+([\s\S]*)/m)[1];
+  return {
+    intro: intro,
+    verses: verses
+  };
+}
+
+function fetch_section(v, ch) {
+  if (v + ':' + ch in fetched) return;
+  fetched[v + ':' + ch] = true;
+
+  if (!('dc' + v in window)) {
+    window['dc' + v] = { year: v, chapters: {} };
+  }
+  $.ajax({
+    url: 'texts/' + v + '/' + ch + '.txt',
+    success: (function(v, ch) {
+      return function(body) {
+        window['dc' + v].chapters[ch] = parse_section(body);
+        compare_verses();
+      }
+    })(v, ch),
+    error: (function(v, ch) {
+      return function() {
+        window['dc' + v].chapters[ch] = false;
+        compare_verses();
+      }
+    })(v, ch)
+  });
+}
+
+function has_sections() {
+  var has_both = true;
+  if (!('dc' + version_a in window) || !(chapter in window['dc' + version_a].chapters)) {
+    fetch_section(version_a, chapter);
+    has_both = false;
+  }
+  if (!('dc' + version_b in window) || !(chapter in window['dc' + version_b].chapters)) {
+    fetch_section(version_b, chapter);
+    has_both = false;
+  }
+  return has_both;
+}
+
 function compare_verses() {
   $('.cover').show();
+  if (!has_sections()) return;
   setTimeout(function() {
     try {
       var a = window['dc' + version_a]
@@ -207,18 +255,18 @@ function compare_verses() {
         if (!a.chapters[chapter]) {
           $('#intro_a').text("The " + version_a + " edition does not contain this passage.");
           $('#output_a').text('');
-          $('#output_b').html(format_text(b.chapters[chapter].verses.join("\n")));
+          $('#output_b').html(format_text(b.chapters[chapter].verses));
         }
         if (!b.chapters[chapter]) {
-          $('#output_a').html(format_text(a.chapters[chapter].verses.join("\n")));
+          $('#output_a').html(format_text(a.chapters[chapter].verses));
           $('#intro_b').text("The " + version_b + " edition does not contain this passage.");
           $('#output_b').text('');
         }
       }
       else {
         compare_texts (
-          a.chapters[chapter].verses.join("\n"),
-          b.chapters[chapter].verses.join("\n"),
+          a.chapters[chapter].verses,
+          b.chapters[chapter].verses,
           'output_a',
           'output_b' );
         compare_texts (
@@ -278,17 +326,18 @@ function attach_events() {
 CHAPTER SELECT
 */
 
-function fill_chapter_select(books) {
+function fill_chapter_select() {
   var chapter_assoc = {};
-  for (var i=0; i<books.length; i++) {
-    var book = books[i];
-    for (var ch in book.chapters) {
+  for (var year in sections) {
+    var book = sections[year];
+    for (var i=0; i<book.length; i++) {
+      var ch = book[i].toString();
       if (!ch.match(/^\d+/))
         continue;
       if (!(ch in chapter_assoc)) {
         chapter_assoc[ch] = []
       }
-      chapter_assoc[ch].push(book.year)
+      chapter_assoc[ch].push(year)
     }
   }
 
@@ -494,7 +543,7 @@ $('#next-section').click(function() {
 /*
 START
 */
-fill_chapter_select([dc1833, dc1835, dc1844, dc2013]);
+fill_chapter_select();
 toggle_dark_mode();
 
 $('#chapter_select').select2({
