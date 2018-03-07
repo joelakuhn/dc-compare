@@ -45,7 +45,9 @@ function combine(diff, which) {
 function mark_same_case(diff) {
   for (var i=0; i<(diff.length - 1); i++) {
     if (diff[i].removed && diff[i+1].added) {
-      if (diff[i].value.toLowerCase() == diff[i+1].value.toLowerCase()) {
+      var letters1 = diff[i].value.replace(/\W/g, ' ').replace(/\s/g, ' ').trim().toLowerCase();
+      var letters2 = diff[i+1].value.replace(/\W/g, ' ').replace(/\s/g, ' ').trim().toLowerCase();
+      if (letters1 == letters2) {
         diff[i].same_case   = true;
         diff[i+1].same_case = true;
       }
