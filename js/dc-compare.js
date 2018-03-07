@@ -178,7 +178,12 @@ function add_eth_count() {
         eth_count_a++;
     }
     var eth_count_a_text = '' + eth_count_a + (eth_count_a == 1 ? ' eth' : ' eths');
-    $('#eth-count-a').text(', ' + eth_count_a_text);
+    if ($('#show-drinks').prop('checked')) {
+      $('#eth-count-a').text(', ' + eth_count_a_text);
+    }
+    else {
+      $('#eth-count-a').text(eth_count_a_text);
+    }
   }
 
   var eths_b = $('#output_b').text().match(/[\w']*eth\b/g);
@@ -189,7 +194,12 @@ function add_eth_count() {
         eth_count_b++;
     }
     var eth_count_b_text = '' + eth_count_b + (eth_count_b == 1 ? ' eth' : ' eths');
-    $('#eth-count-b').text(', ' + eth_count_b_text);
+    if ($('#show-drinks').prop('checked')) {
+      $('#eth-count-b').text(', ' + eth_count_b_text);
+    }
+    else {
+      $('#eth-count-b').text(eth_count_b_text);
+    }
   }
 }
 
