@@ -284,7 +284,7 @@ function compare_verses() {
         level_paragraphs();
         attach_events();
         ignore_punctuation();
-        ignore_numbering();
+        // ignore_numbering();
         ignore_case();
       }
       add_drink_count();
