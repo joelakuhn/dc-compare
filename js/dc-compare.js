@@ -255,12 +255,16 @@ function compare_verses() {
         if (!a.chapters[chapter]) {
           $('#intro_a').text("The " + version_a + " edition does not contain this passage.");
           $('#output_a').text('');
+          $('#intro_b').html(b.chapters[chapter].intro);
           $('#output_b').html(format_text(b.chapters[chapter].verses));
+          level_intros();
         }
         if (!b.chapters[chapter]) {
           $('#output_a').html(format_text(a.chapters[chapter].verses));
+          $('#intro_a').html(a.chapters[chapter].intro);
           $('#intro_b').text("The " + version_b + " edition does not contain this passage.");
           $('#output_b').text('');
+          level_intros();
         }
       }
       else {
