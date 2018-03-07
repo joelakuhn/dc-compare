@@ -201,8 +201,8 @@ function scroll_to_verse() {
 }
 
 function parse_section(section) {
-  var intro = section.match(/\[intro\]\n+([\s\S]*?)\n\[.+?\]\n/m)[1];
-  var verses = section.match(/\[verses\]\n+([\s\S]*)/m)[1];
+  var intro = section.match(/\[intro\]\n*([\s\S]*?)\n*\[.+?\]\n*/m)[1];
+  var verses = section.match(/\[verses\]\n*([\s\S]*)/m)[1];
   return {
     intro: intro,
     verses: verses
