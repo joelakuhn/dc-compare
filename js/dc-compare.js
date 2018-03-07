@@ -436,7 +436,7 @@ function ignore_punctuation() {
   var ignore_punctuation = $('#ignore-punctuation').prop('checked');
   if (ignore_punctuation) {
     var punct = $('.added,.removed').filter(function() {
-      return $(this).text().match(/^[^\w\d]+$/);
+      return $(this).text().match(/^[^\w\d\s]+$/);
     }).css('background', 'transparent');
   }
   else {
