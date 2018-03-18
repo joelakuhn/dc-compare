@@ -1,0 +1,7 @@
+RewriteEngine On
+
+RewriteCond %{HTTPS} Off
+RewriteRule (.*) https://%{SERVER_NAME}/$1 [R=301,L]
+
+RewriteCond %{REQUEST_URI} search-api
+RewriteRule search-api/(.*) http://104.131.73.224:9200/$1 [P]

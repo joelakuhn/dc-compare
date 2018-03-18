@@ -24,7 +24,7 @@ function search(term) {
     query.query.bool.must.push({ match: { year: $('#search-version').val() } });
   }
   $.ajax({
-    url: 'http://104.131.73.224:9200/dc/texts/_search',
+    url: 'https://comparedandc.com/search-api/dc/texts/_search',
     data: JSON.stringify(query),
     dataType: "json",
     type: 'POST',
